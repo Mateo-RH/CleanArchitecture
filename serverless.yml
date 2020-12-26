@@ -1,0 +1,15 @@
+service: vacaciones
+provider:
+  name: aws
+  runtime: nodejs12.x
+
+functions:
+  app:
+    handler: index.handler
+    events:
+      - http:
+          path: /{proxy+}
+          method: ANY
+
+plugins:
+  - serverless-offline
