@@ -4,8 +4,13 @@ class UserBusiness {
   }
 
   async getUsers() {
-    const users = await this._userRepository.getUsers();
-    return users;
+    try {
+      // TODO: error handling + message passing
+      const users = await this._userRepository.getUsers();
+      return users;
+    } catch (e) {
+      return null;
+    }
   }
 
   async getUser(id) {

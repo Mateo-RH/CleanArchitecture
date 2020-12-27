@@ -6,19 +6,20 @@ const config = require('../config');
 
 // routes
 const Routes = require('./router');
-const { UserRoutes } = require('./routes');
+const { UserRoutes, ControlRoutes } = require('./routes');
 
 // Controllers
-const { UserController } = require('./controllers');
+const { UserController, ControlController } = require('./controllers');
 
 // Services
-const { UserService } = require('../services');
+const { UserService, ControlService } = require('../services');
 
 // Business
 const { UserBusiness } = require('../domain');
 
 // Repositories
-const { UserRepository } = require('../dal/repositories');
+const db = require('../dal/models');
+const { UserRepository, ControlRepository } = require('../dal/repositories');
 
 const container = createContainer();
 container
@@ -26,19 +27,24 @@ container
     config: asValue(config),
   })
   .register({
-    app: asClass(StartUp).singleton(),
+    app: asFunction(StartUp).singleton(),
     router: asFunction(Routes).singleton(),
     UserRoutes: asFunction(UserRoutes).singleton(),
     UserController: asClass(UserController).singleton(),
+    ControlRoutes: asFunction(ControlRoutes).singleton(),
+    ControlController: asClass(ControlController).singleton(),
   })
   .register({
     UserService: asClass(UserService).singleton(),
+    ControlService: asClass(ControlService).singleton(),
   })
   .register({
     UserBusiness: asClass(UserBusiness).singleton(),
   })
   .register({
+    db: asValue(db),
     UserRepository: asClass(UserRepository).singleton(),
+    ControlRepository: asClass(ControlRepository).singleton(),
   });
 
 module.exports = container;

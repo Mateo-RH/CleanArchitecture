@@ -5,6 +5,9 @@ class UserController {
 
   async getUsers(req, res) {
     let users = await this._userService.getUsers();
+    if (!users) {
+      return res.status(500).send();
+    }
     return res.send({
       payload: users,
     });

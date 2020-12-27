@@ -1,5 +1,5 @@
 const container = require('./api/container');
 
-const application = container.resolve('app');
+const start = container.resolve('app');
 
-module.exports.handler = application.start();
+module.exports.handler = start;

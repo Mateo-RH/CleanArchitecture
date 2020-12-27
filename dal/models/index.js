@@ -33,17 +33,7 @@ Object.keys(db).forEach((modelName) => {
   }
 });
 
-const connection = {};
-const { models } = sequelize;
-module.exports = async () => {
-  if (connection.isConnected) {
-    console.log('=> Using existing connection.');
-    return models;
-  }
+db.sequelize = sequelize;
+db.Sequelize = Sequelize;
 
-  await sequelize.sync();
-  await sequelize.authenticate();
-  connection.isConnected = true;
-  console.log('=> Created a new connection.');
-  return models;
-};
+module.exports = db;

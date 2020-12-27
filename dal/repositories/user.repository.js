@@ -1,36 +1,26 @@
-const connectToDatabase = require('../models');
-// TODO: Improve connection with db
-
 class UserRepository {
-  async getModel() {
-    // TODO: manejo de error al fallar conexion
-    const { user } = await connectToDatabase();
-    return user;
+  constructor({ db }) {
+    this._db = db;
   }
 
-  async getUsers() {
-    const userModel = await this.getModel();
-    return await userModel.findAll();
+  getUsers() {
+    return this._db['user'].findAll();
   }
 
-  async getUser(id) {
-    const userModel = await this.getModel();
-    return await userModel.findByPk(id);
+  getUser(id) {
+    return this._db['user'].findByPk(id);
   }
 
-  async createUser(user) {
-    const userModel = await this.getModel();
-    return await userModel.create(user);
+  createUser(user) {
+    return this._db['user'].create(user);
   }
 
-  async updateUser(id, user) {
-    const userModel = await this.getModel();
-    return await userModel.update(user, { where: { id } });
+  updateUser(id, user) {
+    return this._db['user'].update(user, { where: { id } });
   }
 
-  async deleteUser(id) {
-    const userModel = await this.getModel();
-    return await userModel.destroy({ where: { id } });
+  deleteUser(id) {
+    return this._db['user'].destroy({ where: { id } });
   }
 }
 
