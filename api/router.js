@@ -1,14 +1,12 @@
 const { Router } = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
+const { UserRoutes } = require('./routes');
 
-module.exports = function ({ UserRoutes, ControlRoutes }) {
-  const router = Router();
+const router = Router();
 
-  router.use(cors()).use(bodyParser.json());
+router.use(cors()).use(bodyParser.json());
 
-  router.use('/user', UserRoutes);
-  router.use('/control', ControlRoutes);
+router.use('/user', UserRoutes);
 
-  return router;
-};
+module.exports = router;

@@ -1,5 +1,8 @@
-const container = require('./api/container');
+const express = require('express');
+const Serverless = require('serverless-http');
+const router = require('./api/router');
 
-const start = container.resolve('app');
+app = express();
+app.use(router);
 
-module.exports.handler = start;
+module.exports.handler = Serverless(app);

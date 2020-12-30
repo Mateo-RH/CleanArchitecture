@@ -1,36 +1,32 @@
-class UserBusiness {
-  constructor({ UserRepository }) {
-    this._userRepository = UserRepository;
-  }
+const { UserRepository } = require('../dal/repositories');
 
-  async getUsers() {
+module.exports = {
+  getUsers: async function () {
     try {
       // TODO: error handling + message passing
-      const users = await this._userRepository.getUsers();
+      const users = await UserRepository.getUsers();
       return users;
     } catch (e) {
       return null;
     }
-  }
+  },
 
-  async getUser(id) {
-    const user = await this._userRepository.getUser(id);
+  getUser: async function (id) {
+    const user = await UserRepository.getUser(id);
     return user;
-  }
+  },
 
-  async createUser(user) {
-    const createdUser = await this._userRepository.createUser(user);
+  createUser: async function (user) {
+    const createdUser = await UserRepository.createUser(user);
     return createdUser;
-  }
+  },
 
-  async deleteUser(id) {
-    return await this._userRepository.deleteUser(id);
-  }
+  deleteUser: async function (id) {
+    return await UserRepository.deleteUser(id);
+  },
 
-  async updateUser(id, user) {
-    const updatedUser = await this._userRepository.updateUser(id, user);
+  updateUser: async function (id, user) {
+    const updatedUser = await UserRepository.updateUser(id, user);
     return updatedUser;
-  }
-}
-
-module.exports = UserBusiness;
+  },
+};
