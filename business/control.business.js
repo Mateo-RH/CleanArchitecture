@@ -1,4 +1,4 @@
-class ControlService {
+class ControlBusiness {
   constructor({ ControlRepository }) {
     this._controlRepository = ControlRepository;
   }
@@ -16,4 +16,4 @@ class ControlService {
   }
 }
 
-module.exports = ControlService;
+module.exports = ControlBusiness;

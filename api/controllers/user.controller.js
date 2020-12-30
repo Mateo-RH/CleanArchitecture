@@ -1,10 +1,10 @@
 class UserController {
-  constructor({ UserService }) {
-    this._userService = UserService;
+  constructor({ UserBusiness }) {
+    this._userBusiness = UserBusiness;
   }
 
   async getUsers(req, res) {
-    let users = await this._userService.getUsers();
+    let users = await this._userBusiness.getUsers();
     if (!users) {
       return res.status(500).send();
     }
@@ -15,7 +15,7 @@ class UserController {
 
   async getUser(req, res) {
     const { id } = req.params;
-    let user = await this._userService.getUser(id);
+    let user = await this._userBusiness.getUser(id);
     if (!user) {
       return res.status(404).send();
     }
@@ -26,7 +26,7 @@ class UserController {
 
   async createUser(req, res) {
     const { body } = req;
-    const createdUser = await this._userService.createUser(body);
+    const createdUser = await this._userBusiness.createUser(body);
     return res.status(201).send({
       payload: createdUser,
     });
@@ -36,13 +36,13 @@ class UserController {
     const { body } = req;
     const { id } = req.params;
 
-    await this._userService.updateUser(id, body);
+    await this._userBusiness.updateUser(id, body);
     return res.status(204).send();
   }
 
   async deleteUser(req, res) {
     const { id } = req.params;
-    await this._userService.deleteUser(id);
+    await this._userBusiness.deleteUser(id);
     return res.status(204).send();
   }
 }

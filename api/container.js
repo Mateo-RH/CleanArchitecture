@@ -11,11 +11,8 @@ const { UserRoutes, ControlRoutes } = require('./routes');
 // Controllers
 const { UserController, ControlController } = require('./controllers');
 
-// Services
-const { UserService, ControlService } = require('../services');
-
 // Business
-const { UserBusiness } = require('../domain');
+const { UserBusiness, ControlBusiness } = require('../business');
 
 // Repositories
 const db = require('../dal/models');
@@ -35,11 +32,8 @@ container
     ControlController: asClass(ControlController).singleton(),
   })
   .register({
-    UserService: asClass(UserService).singleton(),
-    ControlService: asClass(ControlService).singleton(),
-  })
-  .register({
     UserBusiness: asClass(UserBusiness).singleton(),
+    ControlBusiness: asClass(ControlBusiness).singleton(),
   })
   .register({
     db: asValue(db),

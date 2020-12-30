@@ -1,20 +1,20 @@
 class ControlController {
-  constructor({ ControlService }) {
-    this._controlService = ControlService;
+  constructor({ ControlBusiness }) {
+    this._controlBusiness = ControlBusiness;
   }
 
   async sync(req, res) {
-    await this._controlService.sync();
+    await this._controlBusiness.sync();
     return res.status(204).send();
   }
 
   async syncAlter(req, res) {
-    await this._controlService.syncAlter();
+    await this._controlBusiness.syncAlter();
     return res.status(204).send();
   }
 
   async syncForce(req, res) {
-    await this._controlService.syncForce();
+    await this._controlBusiness.syncForce();
     return res.status(204).send();
   }
 }
