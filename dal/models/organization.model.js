@@ -1,8 +1,8 @@
 'use strict';
 
 module.exports = function (sequelize, DataTypes) {
-  const user = sequelize.define(
-    'user',
+  const organization = sequelize.define(
+    'organization',
     {
       id: {
         type: DataTypes.INTEGER,
@@ -14,29 +14,29 @@ module.exports = function (sequelize, DataTypes) {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      email: {
+      phone: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
       },
-      isDisabled: {
-        type: DataTypes.BOOLEAN,
-        allowNull: false,
+      address: {
+        type: DataTypes.STRING,
+        allowNull: true,
       },
     },
-    { tableName: 'user', timestamps: false }
+    { tableName: 'organization', timestamps: false }
   );
 
-  user.associate = function (models) {
-    user.belongsToMany(
-      models.organization,
+  organization.associate = function (models) {
+    organization.belongsToMany(
+      models.user,
       {
         through: 'user_organization',
-        as: 'organization',
-        foreignKey: 'user_id',
+        as: 'user',
+        foreignKey: 'organization_id',
       },
       { onDelete: 'cascade' }
     );
   };
 
-  return user;
+  return organization;
 };
