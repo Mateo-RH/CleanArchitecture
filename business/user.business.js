@@ -1,14 +1,15 @@
 const { UserRepository } = require('../dal/repositories');
+const validateJsonSchema = require('../services/jsonschemas');
+const userSchema = require('./models/user.model');
 
 module.exports = {
+  validateSchema: function (user) {
+    validateJsonSchema(user, userSchema);
+  },
+
   getUsers: async function () {
-    try {
-      // TODO: error handling + message passing
-      const users = await UserRepository.getUsers();
-      return users;
-    } catch (e) {
-      return null;
-    }
+    const users = await UserRepository.getUsers();
+    return users;
   },
 
   getUser: async function (id) {

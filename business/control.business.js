@@ -1,19 +1,15 @@
-class ControlBusiness {
-  constructor({ ControlRepository }) {
-    this._controlRepository = ControlRepository;
-  }
+const { ControlRepository } = require('../dal/repositories');
 
-  async sync() {
-    await this._controlRepository.sync();
-  }
+module.exports = {
+  sync: async function () {
+    await ControlRepository.sync();
+  },
 
-  async syncAlter() {
-    await this._controlRepository.syncAlter();
-  }
+  syncAlter: async function () {
+    await ControlRepository.syncAlter();
+  },
 
-  async syncForce() {
-    await this._controlRepository.syncForce();
-  }
-}
-
-module.exports = ControlBusiness;
+  syncForce: async function () {
+    await ControlRepository.syncForce();
+  },
+};

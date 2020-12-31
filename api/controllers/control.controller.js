@@ -1,22 +1,18 @@
-class ControlController {
-  constructor({ ControlBusiness }) {
-    this._controlBusiness = ControlBusiness;
-  }
+const ControlBusiness = require('../../business/control.business');
 
-  async sync(req, res) {
-    await this._controlBusiness.sync();
+module.exports = {
+  sync: async function (req, res) {
+    await ControlBusiness.sync();
     return res.status(204).send();
-  }
+  },
 
-  async syncAlter(req, res) {
-    await this._controlBusiness.syncAlter();
+  syncAlter: async function (req, res) {
+    await ControlBusiness.syncAlter();
     return res.status(204).send();
-  }
+  },
 
-  async syncForce(req, res) {
-    await this._controlBusiness.syncForce();
+  syncForce: async function (req, res) {
+    await ControlBusiness.syncForce();
     return res.status(204).send();
-  }
-}
-
-module.exports = ControlController;
+  },
+};

@@ -1,14 +1,27 @@
 const UserBusiness = require('../../business/user.business');
 
 module.exports = {
-  getUsers: async function (req, res) {
-    let users = await UserBusiness.getUsers();
-    if (!users) {
-      return res.status(500).send();
+  validateSchema: function (req, res, next) {
+    const { body } = req;
+    try {
+      UserBusiness.validateSchema(body);
+      next();
+    } catch (e) {
+      return res.status(400).send(e.message);
     }
-    return res.send({
-      payload: users,
-    });
+  },
+
+  getUsers: async function (req, res) {
+    try {
+      let users = await UserBusiness.getUsers();
+      return res.send({
+        payload: users,
+      });
+    } catch (e) {
+      return res.status(500).send({
+        message: 'internal server error',
+      });
+    }
   },
   getUser: async function (req, res) {
     const { id } = req.params;
@@ -22,10 +35,16 @@ module.exports = {
   },
   createUser: async function (req, res) {
     const { body } = req;
-    const createdUser = await UserBusiness.createUser(body);
-    return res.status(201).send({
-      payload: createdUser,
-    });
+    try {
+      const createdUser = await UserBusiness.createUser(body);
+      return res.status(201).send({
+        payload: createdUser,
+      });
+    } catch (e) {
+      const statusCode = e.statusCode || 500;
+      const error = e.error || 'internal server error';
+      return res.status(statusCode).send({ error });
+    }
   },
   updateUser: async function (req, res) {
     const { body } = req;

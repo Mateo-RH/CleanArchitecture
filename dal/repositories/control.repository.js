@@ -1,19 +1,15 @@
-class ControlRepository {
-  constructor({ db }) {
-    this._db = db;
-  }
+const db = require('../models');
 
-  async sync() {
-    await this._db.sequelize.sync();
-  }
+module.exports = {
+  sync: async function () {
+    await db.sequelize.sync();
+  },
 
-  async syncAlter() {
-    await this._db.sequelize.sync({ alter: true });
-  }
+  syncAlter: async function () {
+    await db.sequelize.sync({ alter: true });
+  },
 
-  async syncForce(id) {
-    await this._db.sequelize.sync({ force: true });
-  }
-}
-
-module.exports = ControlRepository;
+  syncForce: async function () {
+    await db.sequelize.sync({ force: true });
+  },
+};
