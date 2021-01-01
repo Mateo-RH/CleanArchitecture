@@ -1,9 +1,7 @@
 const { UserRepository } = require('../dal/repositories');
-const { CreateSchema, CreateMapper } = require('./schemas/user.schema');
+const { New, Update } = require('./mappers/user.mappers');
 
 module.exports = {
-  CreateSchema,
-
   getUsers: async function () {
     const users = await UserRepository.getUsers();
     return users;
@@ -15,7 +13,7 @@ module.exports = {
   },
 
   createUser: async function (user) {
-    user = CreateMapper(user);
+    user = New(user);
     const createdUser = await UserRepository.createUser(user);
     return createdUser;
   },
@@ -24,7 +22,8 @@ module.exports = {
     await UserRepository.deleteUser(id);
   },
 
-  updateUser: async function (id, user) {
-    await UserRepository.updateUser(id, user);
+  Update: async function (id, user) {
+    user = Update(user);
+    await UserRepository.Update(id, user);
   },
 };

@@ -1,5 +1,5 @@
 module.exports = {
-  CreateSchema: {
+  POST: {
     type: 'object',
     properties: {
       name: {
@@ -14,7 +14,7 @@ module.exports = {
     },
     required: ['name'],
   },
-  UpdateSchema: {
+  PATCH: {
     type: 'object',
     properties: {
       phone: {
@@ -24,11 +24,5 @@ module.exports = {
         type: 'string',
       },
     },
-  },
-  CreateMapper: function ({ name, phone, address }) {
-    return { name, phone, address };
-  },
-  UpdateMapper: function ({ phone, address }) {
-    return { phone, address };
   },
 };

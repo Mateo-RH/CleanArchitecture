@@ -1,6 +1,7 @@
 const { Router } = require('express');
 const UserOrganizationController = require('../controllers/userOrganization.controller');
 const { ErrorCatcher, ValidateSchema } = require('../middlewares');
+const { POST, PATCH } = require('../schemas/userOrganization.schema');
 
 const router = Router();
 
@@ -10,12 +11,12 @@ router.get(
 );
 router.post(
   '/',
-  ValidateSchema.bind(UserOrganizationController),
+  ValidateSchema.bind(POST),
   ErrorCatcher.bind(UserOrganizationController.createUserOrganization)
 );
 router.patch(
   '/',
-  ValidateSchema.bind(UserOrganizationController),
+  ValidateSchema.bind(PATCH),
   ErrorCatcher.bind(UserOrganizationController.updateUserOrganization)
 );
 router.delete(

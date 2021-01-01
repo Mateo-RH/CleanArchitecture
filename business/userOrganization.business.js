@@ -1,15 +1,7 @@
 const { UserOrganizationRepository } = require('../dal/repositories');
-const {
-  CreateSchema,
-  CreateMapper,
-  UpdateMapper,
-  UpdateSchema,
-} = require('./schemas/userOrganization.schema');
+const { New, Update } = require('./mappers/userOrganization.mappers');
 
 module.exports = {
-  CreateSchema,
-  UpdateSchema,
-
   getUserOrganizations: async function ({ user_id, organization_id }) {
     const where = {
       ...(user_id && { user_id }),
@@ -23,7 +15,7 @@ module.exports = {
   },
 
   createUserOrganization: async function (userOrganization) {
-    userOrganization = CreateMapper(userOrganization);
+    userOrganization = New(userOrganization);
     const createdUserOrganization = await UserOrganizationRepository.createUserOrganization(
       userOrganization
     );
@@ -35,7 +27,7 @@ module.exports = {
     organization_id,
     userOrganization
   ) {
-    userOrganization = UpdateMapper(userOrganization);
+    userOrganization = Update(userOrganization);
     await UserOrganizationRepository.updateUserOrganization(
       { user_id, organization_id },
       userOrganization

@@ -1,5 +1,5 @@
 module.exports = {
-  CreateSchema: {
+  POST: {
     type: 'object',
     properties: {
       name: {
@@ -11,7 +11,12 @@ module.exports = {
     },
     required: ['name', 'email'],
   },
-  CreateMapper: function ({ name, email }) {
-    return { name, email, isDisabled: false };
+  PATCH: {
+    type: 'object',
+    properties: {
+      name: {
+        type: 'string',
+      },
+    },
   },
 };

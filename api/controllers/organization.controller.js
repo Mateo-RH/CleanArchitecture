@@ -1,9 +1,6 @@
 const OrganizationBusiness = require('../../business/organization.business');
 
 module.exports = {
-  CreateSchema: OrganizationBusiness.CreateSchema,
-  UpdateSchema: OrganizationBusiness.UpdateSchema,
-
   getOrganizations: async function (req, res) {
     let organizations = await OrganizationBusiness.getOrganizations();
     return res.send({

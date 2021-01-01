@@ -1,15 +1,7 @@
 const { OrganizationRepository } = require('../dal/repositories');
-const {
-  CreateSchema,
-  UpdateSchema,
-  CreateMapper,
-  UpdateMapper,
-} = require('./schemas/organization.schemas');
+const { New, Update } = require('./mappers/organization.mappers');
 
 module.exports = {
-  CreateSchema,
-  UpdateSchema,
-
   getOrganizations: async function () {
     const organizations = await OrganizationRepository.getOrganizations();
     return organizations;
@@ -21,7 +13,7 @@ module.exports = {
   },
 
   createOrganization: async function (organization) {
-    organization = CreateMapper(organization);
+    organization = New(organization);
     const createdOrganization = await OrganizationRepository.createOrganization(
       organization
     );
@@ -33,7 +25,7 @@ module.exports = {
   },
 
   updateOrganization: async function (id, organization) {
-    organization = UpdateMapper(organization);
+    organization = Update(organization);
     await OrganizationRepository.updateOrganization(id, organization);
   },
 };

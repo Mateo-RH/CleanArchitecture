@@ -1,5 +1,5 @@
 module.exports = {
-  CreateSchema: {
+  POST: {
     type: 'object',
     properties: {
       user_id: {
@@ -23,7 +23,7 @@ module.exports = {
     },
     required: ['user_id', 'organization_id', 'role', 'position'],
   },
-  UpdateSchema: {
+  PATCH: {
     type: 'object',
     properties: {
       role: {
@@ -39,11 +39,5 @@ module.exports = {
         type: 'string',
       },
     },
-  },
-  CreateMapper: function ({ user_id, organization_id, role, position }) {
-    return { user_id, organization_id, role: role.join(','), position };
-  },
-  UpdateMapper: function ({ role, position }) {
-    return { role: role && role.join(','), position };
   },
 };

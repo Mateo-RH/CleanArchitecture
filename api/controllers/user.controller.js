@@ -2,8 +2,6 @@ const UserBusiness = require('../../business/user.business');
 const UserDTO = require('../dtos/user.dto');
 
 module.exports = {
-  CreateSchema: UserBusiness.CreateSchema,
-
   getUsers: async function (req, res) {
     let users = await UserBusiness.getUsers();
     users = users.map(UserDTO);

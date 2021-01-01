@@ -2,9 +2,6 @@ const UserOrganizationBusiness = require('../../business/userOrganization.busine
 const UserOrganizationDTO = require('../dtos/userOrganization.dto');
 
 module.exports = {
-  CreateSchema: UserOrganizationBusiness.CreateSchema,
-  UpdateSchema: UserOrganizationBusiness.UpdateSchema,
-
   getUserOrganizations: async function (req, res) {
     const { user_id, organization_id } = req.query;
     let userOrganizations = await UserOrganizationBusiness.getUserOrganizations(
