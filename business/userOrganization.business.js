@@ -3,13 +3,8 @@ const { New, Update } = require('./mappers/userOrganization.mappers');
 
 module.exports = {
   getUserOrganizations: async function ({ user_id, organization_id }) {
-    const where = {
-      ...(user_id && { user_id }),
-      ...(organization_id && { organization_id }),
-    };
-    // TODO: 'where' is in business or dal?
-    const userOrganizations = await UserOrganizationRepository.getUserOrganizationsWhere(
-      where
+    const userOrganizations = await UserOrganizationRepository.getUserOrganizations(
+      { user_id, organization_id }
     );
     return userOrganizations;
   },
@@ -29,7 +24,8 @@ module.exports = {
   ) {
     userOrganization = Update(userOrganization);
     await UserOrganizationRepository.updateUserOrganization(
-      { user_id, organization_id },
+      user_id,
+      organization_id,
       userOrganization
     );
   },

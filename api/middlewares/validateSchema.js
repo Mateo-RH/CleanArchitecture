@@ -2,9 +2,8 @@ const { Validator } = require('jsonschema');
 
 module.exports = function (req, res, next) {
   const { body } = req;
-  const schema = this;
   const validator = new Validator();
-  const validation = validator.validate(body, schema);
+  const validation = validator.validate(body, this.schema);
   if (!validation.valid) {
     return res
       .status(400)

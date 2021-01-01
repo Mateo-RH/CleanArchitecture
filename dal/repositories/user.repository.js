@@ -1,23 +1,10 @@
-const db = require('../models');
+const BaseRepository = require('./base.repository');
+const model = { model: 'user' };
 
 module.exports = {
-  getUsers: function () {
-    return db['user'].findAll();
-  },
-
-  getUser: function (id) {
-    return db['user'].findByPk(id);
-  },
-
-  createUser: function (user) {
-    return db['user'].create(user);
-  },
-
-  updateUser: function (id, user) {
-    return db['user'].update(user, { where: { id } });
-  },
-
-  deleteUser: function (id) {
-    return db['user'].destroy({ where: { id } });
-  },
+  getUsers: BaseRepository.getAll.bind(model),
+  getUser: BaseRepository.getByPk.bind(model),
+  createUser: BaseRepository.create.bind(model),
+  updateUser: BaseRepository.update.bind(model),
+  deleteUser: BaseRepository.delete.bind(model),
 };

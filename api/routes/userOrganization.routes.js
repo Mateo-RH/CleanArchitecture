@@ -11,12 +11,12 @@ router.get(
 );
 router.post(
   '/',
-  ValidateSchema.bind(POST),
+  ValidateSchema.bind({ schema: POST }),
   ErrorCatcher.bind(UserOrganizationController.createUserOrganization)
 );
 router.patch(
   '/',
-  ValidateSchema.bind(PATCH),
+  ValidateSchema.bind({ schema: PATCH }),
   ErrorCatcher.bind(UserOrganizationController.updateUserOrganization)
 );
 router.delete(

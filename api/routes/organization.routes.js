@@ -9,12 +9,12 @@ router.get('/', ErrorCatcher.bind(OrganizationController.getOrganizations));
 router.get('/:id', ErrorCatcher.bind(OrganizationController.getOrganization));
 router.post(
   '/',
-  ValidateSchema.bind(POST),
+  ValidateSchema.bind({ schema: POST }),
   ErrorCatcher.bind(OrganizationController.createOrganization)
 );
 router.patch(
   '/:id',
-  ValidateSchema.bind(PATCH),
+  ValidateSchema.bind({ schema: PATCH }),
   ErrorCatcher.bind(OrganizationController.updateOrganization)
 );
 router.delete(

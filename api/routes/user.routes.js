@@ -9,12 +9,12 @@ router.get('/', ErrorCatcher.bind(UserController.getUsers));
 router.get('/:id', ErrorCatcher.bind(UserController.getUser));
 router.post(
   '/',
-  ValidateSchema.bind(POST),
+  ValidateSchema.bind({ schema: POST }),
   ErrorCatcher.bind(UserController.createUser)
 );
 router.patch(
   '/:id',
-  ValidateSchema.bind(PATCH),
+  ValidateSchema.bind({ schema: PATCH }),
   ErrorCatcher.bind(UserController.updateUser)
 );
 router.delete('/:id', ErrorCatcher.bind(UserController.deleteUser));

@@ -1,23 +1,10 @@
-const db = require('../models');
+const BaseRepository = require('./base.repository');
+const model = { model: 'organization' };
 
 module.exports = {
-  getOrganizations: function () {
-    return db['organization'].findAll();
-  },
-
-  getOrganization: function (id) {
-    return db['organization'].findByPk(id);
-  },
-
-  createOrganization: function (organization) {
-    return db['organization'].create(organization);
-  },
-
-  updateOrganization: function (id, organization) {
-    return db['organization'].update(organization, { where: { id } });
-  },
-
-  deleteOrganization: function (id) {
-    return db['organization'].destroy({ where: { id } });
-  },
+  getOrganizations: BaseRepository.getAll.bind(model),
+  getOrganization: BaseRepository.getByPk.bind(model),
+  createOrganization: BaseRepository.create.bind(model),
+  updateOrganization: BaseRepository.update.bind(model),
+  deleteOrganization: BaseRepository.delete.bind(model),
 };
