@@ -1,5 +1,5 @@
+// TODO: how to apply dip
 const { UserRepository } = require('../dal/repositories');
-const { New, Update } = require('./mappers/user.mappers');
 
 module.exports = {
   getUsers: async function () {
@@ -13,7 +13,7 @@ module.exports = {
   },
 
   createUser: async function (user) {
-    user = New(user);
+    user.isDisabled = false;
     const createdUser = await UserRepository.createUser(user);
     return createdUser;
   },
@@ -22,8 +22,8 @@ module.exports = {
     await UserRepository.deleteUser(id);
   },
 
-  Update: async function (id, user) {
-    user = Update(user);
-    await UserRepository.Update(id, user);
+  updateUser: async function (user) {
+    const fields = { name: user.name };
+    await UserRepository.updateUser(user.id, fields);
   },
 };

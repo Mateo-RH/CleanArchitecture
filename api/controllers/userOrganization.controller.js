@@ -1,5 +1,5 @@
 const UserOrganizationBusiness = require('../../business/userOrganization.business');
-const UserOrganizationDTO = require('../dtos/userOrganization.dto');
+const { MapToDomain, MapToDto } = require('../mappers/userOrganization.mapper');
 
 module.exports = {
   getUserOrganizations: async function (req, res) {
@@ -10,15 +10,16 @@ module.exports = {
         organization_id,
       }
     );
-    userOrganizations = userOrganizations.map(UserOrganizationDTO);
+    userOrganizations = userOrganizations.map(MapToDto);
     return res.send({
       payload: userOrganizations,
     });
   },
   createUserOrganization: async function (req, res) {
     const { body } = req;
+    const userOrganization = MapToDomain(body);
     let createdUserOrganization = await UserOrganizationBusiness.createUserOrganization(
-      body
+      userOrganization
     );
     return res.status(201).send({
       payload: createdUserOrganization,
@@ -36,11 +37,8 @@ module.exports = {
         );
     }
     const { body } = req;
-    await UserOrganizationBusiness.updateUserOrganization(
-      user_id,
-      organization_id,
-      body
-    );
+    const userOrganization = MapToDomain({ user_id, organization_id, ...body });
+    await UserOrganizationBusiness.updateUserOrganization(userOrganization);
     return res.status(204).send();
   },
   deleteUserOrganization: async function (req, res) {

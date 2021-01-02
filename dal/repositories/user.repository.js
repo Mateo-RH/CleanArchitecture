@@ -1,10 +1,31 @@
-const BaseRepository = require('./base.repository');
-const model = { model: 'user' };
+const db = require('../models');
+const { MapToDao, MapToDomain } = require('../mappers/user.mappers');
 
 module.exports = {
-  getUsers: BaseRepository.getAll.bind(model),
-  getUser: BaseRepository.getByPk.bind(model),
-  createUser: BaseRepository.create.bind(model),
-  updateUser: BaseRepository.update.bind(model),
-  deleteUser: BaseRepository.delete.bind(model),
+  getUsers: async function () {
+    const users = await db['user'].findAll();
+    return users.map(MapToDomain);
+  },
+
+  getUser: async function (id) {
+    const user = await db['user'].findByPk(id);
+    return MapToDomain(user);
+  },
+
+  createUser: async function (user) {
+    user = MapToDao(user);
+    const newUser = await db['user'].create(user);
+    return MapToDomain(newUser);
+  },
+
+  updateUser: function (id, user) {
+    user = MapToDao(user);
+    // Return number of updated rows
+    db['user'].update(user, { where: { id } });
+  },
+
+  deleteUser: function (id) {
+    // Return number of deleted rows
+    db['user'].destroy({ where: { id } });
+  },
 };

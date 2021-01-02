@@ -1,5 +1,4 @@
 const { OrganizationRepository } = require('../dal/repositories');
-const { New, Update } = require('./mappers/organization.mappers');
 
 module.exports = {
   getOrganizations: async function () {
@@ -13,7 +12,6 @@ module.exports = {
   },
 
   createOrganization: async function (organization) {
-    organization = New(organization);
     const createdOrganization = await OrganizationRepository.createOrganization(
       organization
     );
@@ -24,8 +22,8 @@ module.exports = {
     await OrganizationRepository.deleteOrganization(id);
   },
 
-  updateOrganization: async function (id, organization) {
-    organization = Update(organization);
-    await OrganizationRepository.updateOrganization(id, organization);
+  updateOrganization: async function (organization) {
+    const fields = { phone: organization.phone, address: organization.address };
+    await OrganizationRepository.updateOrganization(organization.id, fields);
   },
 };

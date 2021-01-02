@@ -1,3 +1,8 @@
-module.exports = function ({ role, position }) {
-  return { role: role.split(','), position };
-};
+class UserOrganizationDto {
+  constructor({ role, position }) {
+    this.role = role;
+    this.position = position;
+  }
+}
+
+module.exports = UserOrganizationDto;
